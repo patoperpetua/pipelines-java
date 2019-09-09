@@ -1,0 +1,14 @@
+include:
+  - project: 'singletonsd/pipelines/java'
+    file: '/src/.gitlab-ci-main.yml'
+
+variables:
+  JAVA_MAIN_IMAGE_NAME: "maven:3.5.2-jdk-8"
+  JAVA_MAIN_EXECUTE_TEST: "true" # To execute test.
+  JAVA_MAIN_EXECUTE_DEPLOY: "true" # To deploy to maven.
+
+stages:
+  - build
+  - test
+  - deploy
+  - package

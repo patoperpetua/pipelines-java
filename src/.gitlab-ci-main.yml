@@ -1,0 +1,67 @@
+image: ${JAVA_MAIN_IMAGE_NAME}:${JAVA_MAIN_IMAGE_TAG}
+
+include:
+  - project: 'singletonsd/pipelines/common'
+    file: '/src/.gitlab-ci-pages.yml'
+
+variables:
+  JAVA_MAIN_IMAGE_NAME: "maven:3.5.2-jdk-8"
+  JAVA_MAIN_EXECUTE_TEST: ""
+  JAVA_MAIN_EXECUTE_DEPLOY: ""
+
+stages:
+  - build
+  - test
+  - deploy
+  - package
+
+build:
+  stage: build
+  before_script:
+    - if [ -f "settings.xml" ]; then
+        export SETTINGS_VAR="-s settings.xml";
+      fi
+  script:
+    - mvn clean compile ${SETTINGS_VAR}
+
+test:
+  stage: test
+  before_script:
+    - if [ -f "settings.xml" ]; then
+        export SETTINGS_VAR="-s settings.xml";
+      fi
+  script:
+    - mvn test ${SETTINGS_VAR}
+  except:
+    - tags
+  only:
+    variables:
+      - $JAVA_MAIN_EXECUTE_TEST == "true"
+
+package:
+  stage: deploy
+  before_script:
+    - if [ -f "settings.xml" ]; then
+        export SETTINGS_VAR="-s settings.xml";
+      fi
+  script:
+    - mvn package ${SETTINGS_VAR} -DskipTests=true
+  artifacts:
+    name: "$CI_PROJECT_NAME-$CI_COMMIT_TAG"
+    paths:
+      - "target/*.jar"
+
+deploy:
+  stage: deploy
+  before_script:
+    - if [ -f "settings.xml" ]; then
+        export SETTINGS_VAR="-s settings.xml";
+      fi
+  script:
+    - mvn deploy ${SETTINGS_VAR} -DskipTests=true
+  only:
+    variables:
+      - $JAVA_MAIN_EXECUTE_DEPLOY == "true"
+  only:
+    - master
+    - develop

@@ -1,0 +1,9 @@
+image: registry.gitlab.com/singletonsd/docker/gitlab-ci-validator/alpine-3.9:latest
+
+include:
+  - project: 'singletonsd/pipelines/common'
+    file: '/src/.gitlab-ci-templates.yml'
+
+stages:
+  - test
+  - deploy
