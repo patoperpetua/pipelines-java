@@ -1,3 +1,5 @@
+image: ${JAVA_MAIN_IMAGE_NAME}:${JAVA_MAIN_IMAGE_TAG}
+
 include:
   - project: 'singletonsd/pipelines/java'
     file: '/src/.gitlab-ci-main.yml'
