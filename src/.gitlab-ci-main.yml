@@ -58,6 +58,6 @@ deploy:
   only:
     variables:
       - $JAVA_MAIN_EXECUTE_DEPLOY == "true"
-  only:
-    - master
-    - develop
+    refs:
+      - master
+      - develop
