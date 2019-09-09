@@ -5,7 +5,8 @@ include:
     file: '/src/.gitlab-ci-pages.yml'
 
 variables:
-  JAVA_MAIN_IMAGE_NAME: "maven:3.5.2-jdk-8"
+  JAVA_MAIN_IMAGE_NAME: "maven"
+  JAVA_MAIN_IMAGE_TAG: "3.5.2-jdk-8"
   JAVA_MAIN_EXECUTE_TEST: ""
   JAVA_MAIN_EXECUTE_DEPLOY: ""
 
