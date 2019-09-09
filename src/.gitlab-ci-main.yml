@@ -6,6 +6,10 @@ variables:
   JAVA_MAIN_EXECUTE_TEST: ""
   JAVA_MAIN_EXECUTE_DEPLOY: ""
 
+cache:
+  paths:
+    - .m2/repository/
+
 stages:
   - build
   - test
