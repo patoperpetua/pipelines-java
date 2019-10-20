@@ -13,7 +13,7 @@ There is 1 file:
   - **test:** test the project only if *JAVA_MAIN_EXECUTE_TEST* is defined. It has the following available variables:
     - *JAVA_MAIN_EXECUTE_TEST:* "true"
   - **package:** create a jar file. It does not have variables.
-  - **deploy:** publish the project to a defined maven project only if *JAVA_MAIN_EXECUTE_DEPLOY* is defined. It has the following available variables:
+  - **deploy:** publish the project to a defined maven project only if *JAVA_MAIN_EXECUTE_DEPLOY* is defined and the repository name is the same as defined in *ORIGINAL_REPOSITORY* variable. It has the following available variables:
     - *JAVA_MAIN_EXECUTE_DEPLOY:* "true"
 
 ## HOW TO

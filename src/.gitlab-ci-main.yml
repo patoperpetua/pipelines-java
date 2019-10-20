@@ -5,6 +5,7 @@ variables:
   JAVA_MAIN_IMAGE_TAG: "3.5.2-jdk-8"
   JAVA_MAIN_EXECUTE_TEST: ""
   JAVA_MAIN_EXECUTE_DEPLOY: ""
+  ORIGINAL_REPOSITORY: ""
 
 cache:
   paths:
@@ -61,7 +62,7 @@ deploy:
     - mvn deploy ${SETTINGS_VAR} -DskipTests=true
   only:
     variables:
-      - $JAVA_MAIN_EXECUTE_DEPLOY == "true"
+      - $CI_PROJECT_PATH == $ORIGINAL_REPOSITORY && $JAVA_MAIN_EXECUTE_DEPLOY == "true"
     refs:
       - master
       - develop
