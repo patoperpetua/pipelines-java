@@ -62,8 +62,8 @@ And also define the stages you want to use, like following:
 stages:
   - build
   - test
-  - deploy
   - package
+  - deploy
 ```
 
 ### TEST
