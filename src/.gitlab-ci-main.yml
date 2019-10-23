@@ -53,13 +53,17 @@ package:
     - if [ -f "settings.xml" ]; then
         export SETTINGS_VAR="-s settings.xml";
       fi
+    - if [ "${CI_COMMIT_TAG}" == "" ]; then
+        curl -s https://singletonsd.gitlab.io/scripts/java/latest/java_update_version.sh | bash /dev/stdin;
+      fi
   script:
-    - mvn $MAVEN_CLI_OPTS package ${SETTINGS_VAR} -DskipTests=true
+    - mvn $MAVEN_CLI_OPTS -DskipTests=true package ${SETTINGS_VAR}
   artifacts:
     name: "$CI_PROJECT_NAME-$CI_COMMIT_TAG"
     paths:
       - "target/*.jar"
       - "target/lib*/*.jar"
+      - "pom.xml"
 
 deploy:
   stage: deploy
@@ -67,11 +71,8 @@ deploy:
     - if [ -f "settings.xml" ]; then
         export SETTINGS_VAR="-s settings.xml";
       fi
-    - if [ "${CI_COMMIT_TAG}" == "" ]; then
-        curl -s https://singletonsd.gitlab.io/scripts/java/latest/java_update_version.sh | bash /dev/stdin;
-      fi
   script:
-    - mvn $MAVEN_CLI_OPTS deploy ${SETTINGS_VAR} -DskipTests=true
+    - mvn $MAVEN_CLI_OPTS deploy -DskipTests=true ${SETTINGS_VAR}
   only:
     variables:
       - $CI_PROJECT_PATH == $ORIGINAL_REPOSITORY && $JAVA_MAIN_EXECUTE_DEPLOY == "true"
