@@ -67,6 +67,7 @@ package:
     name: "$CI_PROJECT_NAME-$CI_COMMIT_TAG-package"
     paths:
       - "target/*.jar"
+      - "target/*.xml"
       - "target/lib*/*.jar"
       - "pom.xml"
 
